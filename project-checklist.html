@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robots World — Project Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d0f0f;
+    --surface:   #131717;
+    --border:    #1e2626;
+    --accent:    #00e5a0;
+    --accent-dim:#00b37a;
+    --text:      #c8d6d0;
+    --text-muted:#5a7068;
+    --heading:   #e8f2ee;
+    --code-bg:   #0a0e0e;
+    --mono:      'Share Tech Mono', monospace;
+    --sans:      'DM Sans', sans-serif;
+    --done:      #00e5a0;
+    --pending:   #5a7068;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.75;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  nav {
+    width: 240px;
+    min-width: 240px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 2rem 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .nav-logo span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 10px;
+    margin-top: 4px;
+  }
+
+  nav a {
+    display: block;
+    padding: 0.35rem 1.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 400;
+    transition: color 0.15s, background 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+    background: rgba(0,229,160,0.04);
+    border-left-color: var(--accent-dim);
+  }
+
+  nav .nav-section {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 1.25rem 1.5rem 0.4rem;
+    opacity: 0.5;
+  }
+
+  /* ── Progress bar ── */
+  .progress-bar-wrap {
+    padding: 1.5rem 1.5rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .progress-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .progress-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  /* ── Main ── */
+  main {
+    flex: 1;
+    padding: 3rem 4rem 6rem;
+    max-width: 900px;
+  }
+
+  .hero {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: var(--mono);
+    font-size: 2rem;
+    color: var(--heading);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 3rem;
+  }
+
+  section h2 {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  section h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  section h3 {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  /* ── Checklist items ── */
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.1s;
+    border-bottom: 1px solid rgba(30,38,38,0.5);
+    user-select: none;
+  }
+
+  .checklist li:last-child {
+    border-bottom: none;
+  }
+
+  .checklist li:hover {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .checklist li.done {
+    opacity: 0.5;
+  }
+
+  .checklist li.done .item-text {
+    text-decoration: line-through;
+    color: var(--text-muted);
+  }
+
+  .checkbox {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    background: transparent;
+  }
+
+  .checklist li.done .checkbox {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .checkbox svg {
+    display: none;
+    width: 10px;
+    height: 10px;
+  }
+
+  .checklist li.done .checkbox svg {
+    display: block;
+  }
+
+  .item-text {
+    font-size: 14px;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.6;
+  }
+
+  .item-text code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--accent-dim);
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-top: 3px;
+  }
+
+  .tag-required {
+    background: rgba(229,80,0,0.15);
+    color: #e55000;
+    border: 1px solid rgba(229,80,0,0.2);
+  }
+
+  .tag-graded {
+    background: rgba(229,200,0,0.1);
+    color: #c8b000;
+    border: 1px solid rgba(229,200,0,0.15);
+  }
+
+  /* ── Stats bar ── */
+  .stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    color: var(--heading);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .stat-divider {
+    width: 1px;
+    background: var(--border);
+    margin: 0 0.25rem;
+  }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── Warning callout ── */
+  .callout {
+    background: rgba(229,200,0,0.05);
+    border: 1px solid rgba(229,200,0,0.15);
+    border-left: 3px solid #c8b000;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 13.5px;
+    color: var(--text);
+  }
+
+  .callout strong {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c8b000;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    ROBOTS WORLD<span>Project Checklist</span>
+  </div>
+
+  <span class="nav-section">Documentation</span>
+  <a href="#docs">Design & Docs</a>
+
+  <span class="nav-section">Server</span>
+  <a href="#world-spec">World Specification</a>
+  <a href="#world-commands">World Commands</a>
+  <a href="#config">Configuration</a>
+  <a href="#robot-mgmt">Robot Management</a>
+
+  <span class="nav-section">Commands</span>
+  <a href="#launch">Launch</a>
+  <a href="#movement">Movement</a>
+  <a href="#look">Look</a>
+  <a href="#fire">Fire</a>
+  <a href="#reload">Reload</a>
+  <a href="#repair">Repair</a>
+  <a href="#state">State</a>
+
+  <span class="nav-section">Client</span>
+  <a href="#client">Client Requirements</a>
+  <a href="#robot-types">Robot Types</a>
+
+  <span class="nav-section">Protocol</span>
+  <a href="#protocol">Protocol Structure</a>
+  <a href="#responses">Response Structures</a>
+
+  <span class="nav-section">Quality</span>
+  <a href="#code-quality">Code Quality</a>
+  <a href="#collaboration">Collaboration</a>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="hero-tag">// iteration tracker</div>
+    <h1>Robots World<br>Project Checklist</h1>
+    <p>Click any item to mark it as done. Progress is saved in your browser.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-value" id="stat-done">0</span>
+      <span class="stat-label">Completed</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-value" id="stat-total">0</span>
+      <span class="stat-label">Total Items</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-value" id="stat-pct">0%</span>
+      <span class="stat-label">Progress</span>
+    </div>
+  </div>
+
+  <!-- DOCUMENTATION -->
+  <section id="docs">
+    <h2>Design &amp; Documentation</h2>
+    <div class="callout"><strong>Graded Deliverable</strong>Failing to produce design documentation will weigh negatively in project assessment and grading.</div>
+    <ul class="checklist">
+      <li data-id="doc1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Class diagram containing the most important classes</span><span class="tag tag-graded">Graded</span></li>
+      <li data-id="doc2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Domain diagram characterising domain classes and how they work together</span><span class="tag tag-graded">Graded</span></li>
+      <li data-id="doc3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Component diagram for the <code>client</code></span><span class="tag tag-graded">Graded</span></li>
+      <li data-id="doc4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Component diagram for the portion of the server that reads and executes commands</span><span class="tag tag-graded">Graded</span></li>
+      <li data-id="doc5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">All diagrams saved to GitLab Wiki</span></li>
+      <li data-id="doc6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Key architectural decisions recorded in GitLab Wiki</span></li>
+      <li data-id="doc7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Retrospective notes recorded after each iteration</span></li>
+    </ul>
+  </section>
+
+  <!-- WORLD SPEC -->
+  <section id="world-spec">
+    <h2>World Specification</h2>
+    <ul class="checklist">
+      <li data-id="ws1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">World is a grid — size is NOT hard-coded, read from a configuration file on startup</span></li>
+      <li data-id="ws2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">World coordinate system: centre is always at <code>(0,0)</code></span></li>
+      <li data-id="ws3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">North edge = maximum y, South edge = minimum y, East edge = maximum x, West edge = minimum x</span></li>
+      <li data-id="ws4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Standard compass directions: N, S, E, W</span></li>
+      <li data-id="ws5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Obstacles are rectangular, positioned by top-left and bottom-right coordinates</span></li>
+      <li data-id="ws6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Obstacles cannot overlap each other (but can be adjacent)</span></li>
+      <li data-id="ws7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">World always has at least one obstacle</span></li>
+      <li data-id="ws8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Obstacle types: mountains, lakes, and bottomless pits</span></li>
+      <li data-id="ws9"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robots cannot move through mountains or lakes — must go around</span></li>
+      <li data-id="ws10"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot that moves into a bottomless pit is removed from the world permanently</span></li>
+      <li data-id="ws11"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robots cannot see through mountains</span></li>
+      <li data-id="ws12"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robots CAN see over lakes and bottomless pits (limited only by visibility range)</span></li>
+      <li data-id="ws13"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Visibility range is configurable (in steps) — controls how far a robot can see in each direction</span></li>
+      <li data-id="ws14"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot field of view is straight lines only — N, S, E, W — no diagonals</span></li>
+      <li data-id="ws15"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">If an obstacle is larger than the visible range, the robot cannot see its full extent</span></li>
+    </ul>
+  </section>
+
+  <!-- WORLD COMMANDS -->
+  <section id="world-commands">
+    <h2>World Console Commands</h2>
+    <ul class="checklist">
+      <li data-id="wc1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>quit</code> — disconnects all robots and ends the world</span></li>
+      <li data-id="wc2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>robots</code> — lists all robots in the world including each robot's name and full state</span></li>
+      <li data-id="wc3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>dump</code> — displays a representation of the world showing robots, obstacles, and all world contents</span></li>
+    </ul>
+  </section>
+
+  <!-- CONFIGURATION -->
+  <section id="config">
+    <h2>Server Configuration File</h2>
+    <ul class="checklist">
+      <li data-id="cf1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">World width (in steps)</span></li>
+      <li data-id="cf2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">World height (in steps)</span></li>
+      <li data-id="cf3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Visibility range (in steps)</span></li>
+      <li data-id="cf4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Shield repair time (in seconds)</span></li>
+      <li data-id="cf5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Weapon reload time (in seconds)</span></li>
+      <li data-id="cf6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Maximum shield strength (in hits)</span></li>
+      <li data-id="cf7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Obstacle definitions (positions and types) read from config</span></li>
+      <li data-id="cf8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Server port read from config or command line (not hard-coded)</span></li>
+    </ul>
+  </section>
+
+  <!-- ROBOT MANAGEMENT -->
+  <section id="robot-mgmt">
+    <h2>Robot Management</h2>
+    <ul class="checklist">
+      <li data-id="rm1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Multiple client connections handled concurrently (each on its own thread)</span></li>
+      <li data-id="rm2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot randomly positioned in an open space on launch</span></li>
+      <li data-id="rm3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Duplicate robot names rejected — error response returned</span></li>
+      <li data-id="rm4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">World full (no free position) — error response returned</span></li>
+      <li data-id="rm5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot removed from world when killed (status DEAD)</span></li>
+      <li data-id="rm6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot removed from world when it falls into a bottomless pit</span></li>
+      <li data-id="rm7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot deregistered from world when client disconnects</span></li>
+      <li data-id="rm8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot maximum shield strength capped at world's configured maximum even if robot type exceeds it</span></li>
+      <li data-id="rm9"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot always faces NORTH when launched</span></li>
+      <li data-id="rm10"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot starts with maximum shield strength for its type</span></li>
+      <li data-id="rm11"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot starts with maximum number of shots for its type</span></li>
+      <li data-id="rm12"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot starts in NORMAL operational status</span></li>
+    </ul>
+  </section>
+
+  <!-- LAUNCH COMMAND -->
+  <section id="launch">
+    <h2>Command: Launch</h2>
+    <ul class="checklist">
+      <li data-id="lc1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Request accepts: robot type name (kind)</span></li>
+      <li data-id="lc2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Success response data includes: <code>position</code>, <code>visibility</code>, <code>reload</code> time, <code>repair</code> time, <code>shields</code> max</span></li>
+      <li data-id="lc3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Success response state includes full robot state (position, direction NORTH, shields, shots, status NORMAL)</span></li>
+      <li data-id="lc4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Error response: <code>"Too many of you in this world"</code> when name already taken</span></li>
+      <li data-id="lc5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Error response: <code>"No more space in this world"</code> when no free position</span></li>
+    </ul>
+  </section>
+
+  <!-- MOVEMENT -->
+  <section id="movement">
+    <h2>Commands: Forward / Back / Turn</h2>
+    <ul class="checklist">
+      <li data-id="mv1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>forward &lt;steps&gt;</code> — moves robot in the direction it is facing</span></li>
+      <li data-id="mv2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>back &lt;steps&gt;</code> — moves robot in the opposite direction to facing</span></li>
+      <li data-id="mv3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>turn left</code> / <code>turn right</code> — turns robot and updates direction</span></li>
+      <li data-id="mv4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Movement blocked by mountains, lakes, other robots, and world edges</span></li>
+      <li data-id="mv5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Moving into a bottomless pit removes robot from world</span></li>
+      <li data-id="mv6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Success response: <code>message: "Done"</code> + updated state with new position</span></li>
+      <li data-id="mv7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Obstructed response: <code>message: "Obstructed"</code> + position set to last valid step reached</span></li>
+      <li data-id="mv8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Turn success response: <code>message: "Done"</code> + updated direction in state</span></li>
+      <li data-id="mv9"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot cannot move while status is REPAIR or RELOAD</span></li>
+    </ul>
+  </section>
+
+  <!-- LOOK -->
+  <section id="look">
+    <h2>Command: Look</h2>
+    <ul class="checklist">
+      <li data-id="lk1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Looks in all four directions: N, S, E, W</span></li>
+      <li data-id="lk2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Returns objects as absolute compass directions (not relative to robot facing)</span></li>
+      <li data-id="lk3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Respects world visibility range — cannot see beyond configured steps</span></li>
+      <li data-id="lk4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Cannot see through mountains (vision blocked)</span></li>
+      <li data-id="lk5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">CAN see over lakes and bottomless pits</span></li>
+      <li data-id="lk6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Response includes array of objects, each with: <code>direction</code>, <code>type</code>, <code>distance</code></span></li>
+      <li data-id="lk7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Object types supported: <code>OBSTACLE</code>, <code>ROBOT</code>, <code>EDGE</code></span></li>
+    </ul>
+  </section>
+
+  <!-- FIRE -->
+  <section id="fire">
+    <h2>Command: Fire</h2>
+    <ul class="checklist">
+      <li data-id="fi1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Fires in the direction the robot is currently facing</span></li>
+      <li data-id="fi2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Shot travels the robot type's configured distance (in steps)</span></li>
+      <li data-id="fi3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Can hit a robot it cannot see (shooting into fog)</span></li>
+      <li data-id="fi4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Shooting an obstacle has no effect on the obstacle</span></li>
+      <li data-id="fi5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Shot count decremented after each fire</span></li>
+      <li data-id="fi6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Cannot fire with 0 shots remaining</span></li>
+      <li data-id="fi7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Hit response includes: <code>message: "Hit"</code>, <code>distance</code>, <code>robot</code> name, target <code>state</code>, attacker shots remaining</span></li>
+      <li data-id="fi8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Miss response includes: <code>message: "Miss"</code>, attacker shots remaining</span></li>
+      <li data-id="fi9"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Hit target's shields decremented correctly</span></li>
+      <li data-id="fi10"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Target killed when hit with 0 shields remaining — removed from world</span></li>
+    </ul>
+  </section>
+
+  <!-- RELOAD -->
+  <section id="reload">
+    <h2>Command: Reload</h2>
+    <ul class="checklist">
+      <li data-id="rl1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Reloads to maximum number of shots — or not at all (no partial reload)</span></li>
+      <li data-id="rl2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Takes world-configured number of seconds regardless of current shot count</span></li>
+      <li data-id="rl3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot cannot move during reload</span></li>
+      <li data-id="rl4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Cannot reload beyond maximum shots for robot type</span></li>
+      <li data-id="rl5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Status set to <code>RELOAD</code> during reload, returns to <code>NORMAL</code> after</span></li>
+      <li data-id="rl6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Success response: <code>message: "Done"</code> + state with status <code>RELOAD</code></span></li>
+    </ul>
+  </section>
+
+  <!-- REPAIR -->
+  <section id="repair">
+    <h2>Command: Repair</h2>
+    <ul class="checklist">
+      <li data-id="rp1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Repairs shields to maximum strength — or not at all (no partial repair)</span></li>
+      <li data-id="rp2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Takes world-configured number of seconds regardless of current shield level</span></li>
+      <li data-id="rp3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Robot cannot move during repair</span></li>
+      <li data-id="rp4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Cannot repair beyond robot type's maximum shield strength</span></li>
+      <li data-id="rp5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Status set to <code>REPAIR</code> during repair, returns to <code>NORMAL</code> after</span></li>
+      <li data-id="rp6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Success response: <code>message: "Done"</code> + state with status <code>REPAIR</code></span></li>
+    </ul>
+  </section>
+
+  <!-- STATE -->
+  <section id="state">
+    <h2>Command: State</h2>
+    <ul class="checklist">
+      <li data-id="st1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Returns current robot state: <code>position</code>, <code>direction</code>, <code>shields</code>, <code>shots</code>, <code>status</code></span></li>
+      <li data-id="st2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">No data payload — state only in response</span></li>
+    </ul>
+  </section>
+
+  <!-- CLIENT -->
+  <section id="client">
+    <h2>Client Requirements</h2>
+    <ul class="checklist">
+      <li data-id="cl1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Server IP address and port taken from command line arguments — NOT hard-coded</span></li>
+      <li data-id="cl2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Connects to server and launches a robot before accepting user commands</span></li>
+      <li data-id="cl3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>launch &lt;make&gt; &lt;name&gt;</code> command supported</span></li>
+      <li data-id="cl4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>forward &lt;steps&gt;</code> command supported</span></li>
+      <li data-id="cl5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>back &lt;steps&gt;</code> command supported</span></li>
+      <li data-id="cl6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>turn left</code> / <code>turn right</code> command supported</span></li>
+      <li data-id="cl7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>look</code> command supported</span></li>
+      <li data-id="cl8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>fire</code> command supported</span></li>
+      <li data-id="cl9"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>reload</code> command supported</span></li>
+      <li data-id="cl10"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>repair</code> command supported</span></li>
+      <li data-id="cl11"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>state</code> command supported</span></li>
+      <li data-id="cl12"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>orientation</code> command — shows which direction the robot is currently facing</span></li>
+      <li data-id="cl13"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Client displays server responses meaningfully to the user</span></li>
+      <li data-id="cl14"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Client distinguishes between a Response and a Notification on incoming messages</span></li>
+      <li data-id="cl15"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Client displays push notifications to user (shot, killed, disconnected)</span></li>
+      <li data-id="cl16"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">More than one robot can be launched into the world concurrently</span></li>
+    </ul>
+  </section>
+
+  <!-- ROBOT TYPES -->
+  <section id="robot-types">
+    <h2>Robot Types (Makes)</h2>
+    <ul class="checklist">
+      <li data-id="rt1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">At least one robot type (make) implemented with a name</span></li>
+      <li data-id="rt2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Each type has a configured shield strength</span></li>
+      <li data-id="rt3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Each type has a configured shot distance</span></li>
+      <li data-id="rt4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Each type has a configured number of shots</span></li>
+      <li data-id="rt5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Shield strength capped at world maximum if robot type exceeds it</span></li>
+      <li data-id="rt6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Shield of 0 means no shield — first hit kills the robot</span></li>
+    </ul>
+  </section>
+
+  <!-- PROTOCOL -->
+  <section id="protocol">
+    <h2>Protocol — Message Structure</h2>
+    <ul class="checklist">
+      <li data-id="pr1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Request JSON fields: <code>robot</code>, <code>command</code>, <code>arguments</code> — all mandatory</span></li>
+      <li data-id="pr2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Command must be lowercase</span></li>
+      <li data-id="pr3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Arguments array is empty <code>[]</code> when command takes no arguments</span></li>
+      <li data-id="pr4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Response JSON fields: <code>result</code>, <code>data</code> (mandatory), <code>state</code> (only when result is OK)</span></li>
+      <li data-id="pr5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">State fields: <code>position</code> [x,y], <code>direction</code>, <code>shields</code>, <code>shots</code>, <code>status</code></span></li>
+      <li data-id="pr6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Direction values: <code>NORTH</code>, <code>SOUTH</code>, <code>EAST</code>, <code>WEST</code></span></li>
+      <li data-id="pr7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Status values: <code>RELOAD</code>, <code>REPAIR</code>, <code>NORMAL</code>, <code>DEAD</code></span></li>
+      <li data-id="pr8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Error response for unparseable arguments: <code>"Could not parse arguments"</code></span></li>
+      <li data-id="pr9"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Error response for unsupported command: <code>"Unsupported command"</code></span></li>
+      <li data-id="pr10"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Client validates input before sending — nothing invalid sent over network</span></li>
+      <li data-id="pr11"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Server validates independently of client</span></li>
+    </ul>
+  </section>
+
+  <!-- CODE QUALITY -->
+  <section id="code-quality">
+    <h2>Code Quality</h2>
+    <ul class="checklist">
+      <li data-id="cq1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Every class and public method has meaningful Javadoc</span><span class="tag tag-graded">Graded</span></li>
+      <li data-id="cq2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Consistent indentation throughout the codebase (2 spaces, 4 spaces, or tabs — pick one)</span></li>
+      <li data-id="cq3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Java naming conventions: CamelCase classes, camelCase methods and variables</span></li>
+      <li data-id="cq4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Single responsibility principle applied to classes and methods</span></li>
+      <li data-id="cq5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Comprehensive unit tests for the server</span><span class="tag tag-required">Required</span></li>
+      <li data-id="cq6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Comprehensive unit tests for the client</span><span class="tag tag-required">Required</span></li>
+      <li data-id="cq7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Code must run from shell (not IDE or Maven) for final demo</span><span class="tag tag-required">Required</span></li>
+      <li data-id="cq8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Input handling and user-facing output is clear and well-formatted</span><span class="tag tag-graded">Graded</span></li>
+    </ul>
+  </section>
+
+  <!-- COLLABORATION -->
+  <section id="collaboration">
+    <h2>Team Collaboration</h2>
+    <ul class="checklist">
+      <li data-id="tc1"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">GitLab Issues board regularly updated with tasks</span><span class="tag tag-graded">Graded</span></li>
+      <li data-id="tc2"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">All code merged to main via GitLab Pull Requests (not direct pushes)</span></li>
+      <li data-id="tc3"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">All team members have write access to the repository</span></li>
+      <li data-id="tc4"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text"><code>.lms/exercises.toml</code> updated with correct <code>activity_id</code> and all team member emails</span><span class="tag tag-required">Required</span></li>
+      <li data-id="tc5"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Iteration 1 showcase completed and demo feedback addressed</span></li>
+      <li data-id="tc6"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Iteration 2 showcase completed and demo feedback addressed</span></li>
+      <li data-id="tc7"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Iteration 3 showcase completed and demo feedback addressed</span></li>
+      <li data-id="tc8"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Final demo poster prepared</span></li>
+      <li data-id="tc9"><div class="checkbox"><svg viewBox="0 0 10 8" fill="none"><polyline points="1,4 3.5,7 9,1" stroke="#0d0f0f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="item-text">Every team member can explain their own code during demo</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<script>
+  const STORAGE_KEY = 'robotworld_checklist_v1';
+
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function updateStats() {
+    const items = document.querySelectorAll('.checklist li');
+    const done = document.querySelectorAll('.checklist li.done');
+    const total = items.length;
+    const doneCount = done.length;
+    const pct = total === 0 ? 0 : Math.round((doneCount / total) * 100);
+
+    document.getElementById('stat-done').textContent = doneCount;
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-pct').textContent = pct + '%';
+  }
+
+  function init() {
+    const state = loadState();
+    const items = document.querySelectorAll('.checklist li');
+
+    items.forEach(item => {
+      const id = item.dataset.id;
+      if (state[id]) {
+        item.classList.add('done');
+      }
+
+      item.addEventListener('click', () => {
+        const current = loadState();
+        if (item.classList.contains('done')) {
+          item.classList.remove('done');
+          delete current[id];
+        } else {
+          item.classList.add('done');
+          current[id] = true;
+        }
+        saveState(current);
+        updateStats();
+      });
+    });
+
+    updateStats();
+  }
+
+  init();
+</script>
+</body>
+</html>
